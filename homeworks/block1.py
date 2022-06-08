@@ -6,16 +6,20 @@
 # 2. Записать эту функцию в произвольную переменную. Напечатать эту переменную на экран. Что вы видите?
 # 3. Вызвать функцию суммирования через переменную, в которую вы только что её записали.
 
+# 1 ------
 # def sum_digit(a, b):
 #     return a + b
 #
+# 2 ------
+# result_sum = sum_digit
+# print(result_sum)           #<function sum_digit at 0x000002A4A05F3E20> в переменную sum_digit записался объект функции
 #
-# result = sum_digit
-# print(result)           #<function sum_digit at 0x000002A4A05F3E20>
-# summa = result(5, 8)     # Вернет сумму чисел a и b = 13
+# 3 ------
+# summa = result(5, 8)     # Вернет сумму чисел a и b = 13 и запишет результат в переменную summa
 # print(summa)             # 13
 
-### Medium
+
+# Medium
 # 1. Написать функцию, которая на вход будет принимать произвольное количество аргументов и возвращать их сумму.
 # 2. В сигнатуре функции объявить 4 обязательных аргумента, но оставить возможность передавать в неё сколько угодно
 # дополнительных аргументов. Попробуйте вызвать функцию в следующих ситуациях и объясните результат:
@@ -24,7 +28,7 @@
 #  - создать кортеж со значениями и распаковать его при вызове функции с помощью *
 #  - создать словарь со значениями и распаковать его при вызове функции с помощью * и **: что наблюдаете? Почему?
 
-
+# 1 ------
 def sum_digit(*args):
     summa = 0
 
@@ -32,29 +36,67 @@ def sum_digit(*args):
         summa += n
     return summa
 
-print(sum_digit(1, 3, 3, 5))
+
+result_sum = sum_digit(1, 3, 3, 5)
+print(result_sum)
 
 
-# sum_digit(1)              # TypeError: sum_digit() missing 3 required positional arguments: 'b', 'c', and 'd'
-# sum_digit(1, 4, 5, a=3)     # TypeError: sum_digit() got multiple values for argument 'a'
-# abcde = (1, 2, 3, 4, 5, 6, 7, 8)
-# sum_digit(*abcde)           # 36
+# 2 ------
+def calculate_numbers(a, b, c, d, *args, **kwargs):
+    summa = a + b + c + d
+    arg_value = 0
+    kwarg_value = 0
+
+    if args:
+        for n in args:
+            arg_value += n
+
+    if kwargs:
+        for i in kwargs.values():
+            kwarg_value += i
+
+    return summa + arg_value + kwarg_value
 
 
-### Hard
+# print(calculate_numbers(1))       # Прокидываем в функцию только 1 аргумент
+""" Ругается об отсутствии 3-ех обязательных позиционных аргументов: 'b', 'c', и 'd' """
+
+# print(calculate_numbers(1, 4, 5, 5, a=3))     # Прокидываем обязательный аргумент одновременно позиционно и по ключу
+""" Ругается что функция sum_digit() получила несколько значений аргумента 'a'
+т.е. мы позиционно уже прокинули в 'a' значение и пытаемся сделать это еще раз по ключу """
+
+# tuple_value = (1, 2, 3, 4)
+# print(calculate_numbers(*tuple_value))
+""" Кортеж значений распаковывается с помощью * и передается в функцию в качестве позиционных аргументов, 
+далее печатается результат на экран"""
+
+tuple_value = (1, 2, 3, 4)
+dict_value = {'ab': 4, 'bc': 2, 'cd': 5, 'de': 4}
+print(calculate_numbers(2, 4, 5, 5, *tuple_value, **dict_value))
+""" Две ** звёздочки не распаковывают значения, а передают словарь в качестве именованных 
+    аргументов {'ab': 4, 'bc': 2, 'cd': 5, 'de': 4}. Распаковываются сами
+    ключи 'ab', 'bc' и т.д., а ключи являются строками, что приводит к падению программы с ошибкой
+    TypeError: unsupported operand type(s) for +=: 'int' and 'str' если функция выполняет какие либо математические
+    операции. Если функция просто возвращает переданные ей значения, то видим что в функцию были переданы позиционные
+    аргументы, затем кортеж значений, ну и сам словарь(2, 4, 5, 5, (1, 2, 3, 4), {'ab': 4, 'bc': 2, 'cd': 5, 'de': 4}"""
+
+
+# Hard
 # 1. Модифицировать функцию таким образом, чтобы для суммирования брались только обязательные аргументы, первые
 # 2 аргумента из дополнительных позиционных аргументов и любой аргумент из дополнительных аргументов (если они есть),
 # переданных по ключу (если они есть).
 
-# def sum_digit(a, b, c, d, *args):
-#     summa = a + b + c + d
-#
-#     for n in args:
-#         summa += n
-#     print(summa)
+def hard_func(a, b, *args, **kwargs):
+    arg_value = 0
+    kwarg_value = 0
+
+    if args:
+        arg_value = sum(args[:2])
+
+    if kwargs:
+        kwarg_value = kwargs['c']
+
+    return a + b + arg_value + kwarg_value
 
 
-# abcde = (1, 2, 3, 4, 5, 6, 7, 8)
-# sum_digit(1)              # TypeError: sum_digit() missing 3 required positional arguments: 'b', 'c', and 'd'
-# sum_digit(1, 4, 5, a=3)     # TypeError: sum_digit() got multiple values for argument 'a'
-# sum_digit(*abcde)           # 36
+print(hard_func(1, 2, 3, 4, 4, 6, 8, c=8))
