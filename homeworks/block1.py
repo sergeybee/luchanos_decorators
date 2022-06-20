@@ -7,18 +7,18 @@
 # 3. Вызвать функцию суммирования через переменную, в которую вы только что её записали.
 
 # 1.1
-def sum_digit(a, b):
-    return a + b
+# def sum_digit(a, b):
+#     return a + b
 
 
 # 2.1
-result_sum = sum_digit
-print(result_sum)  # <function sum_digit at 0x000002A4A05F3E20> в переменную sum_digit записался объект функции
+# result_sum = sum_digit
+# print(result_sum)  # <function sum_digit at 0x000002A4A05F3E20> в переменную sum_digit записался объект функции
 
 
 # 3.1
-summa_easy = result_sum(5, 8)     # Вернет сумму чисел a и b = 13 и запишет результат в переменную summa
-print(summa_easy)             # 13
+# summa_easy = result_sum(5, 8)     # Вернет сумму чисел a и b = 13 и запишет результат в переменную summa
+# print(summa_easy)             # 13
 
 
 # ---------------------------------- Medium -------------------------------
@@ -31,33 +31,33 @@ print(summa_easy)             # 13
 #  - создать словарь со значениями и распаковать его при вызове функции с помощью * и **: что наблюдаете? Почему?
 
 # 1.1
-def sum_digit(*args):
-    sum_args = 0
-
-    for n in args:
-        sum_args += n
-    return sum_args
-
-
-result_sum = sum_digit(1, 3, 3, 5)
-print(result_sum)
+# def sum_digit(*args):
+#     sum_args = 0
+#
+#     for n in args:
+#         sum_args += n
+#     return sum_args
+#
+#
+# result_sum = sum_digit(1, 3, 3, 5)
+# print(result_sum)
 
 
 # 2.1
-def calculate_numbers(a, b, c, d, *args, **kwargs):
-    summa = a + b + c + d
-    arg_value = 0
-    kwarg_value = 0
-
-    if args:
-        for n in args:
-            arg_value += n
-
-    if kwargs:
-        for i in kwargs.values():
-            kwarg_value += i
-
-    return summa + arg_value + kwarg_value
+# def calculate_numbers(a, b, c, d, *args, **kwargs):
+#     summa = a + b + c + d
+#     arg_value = 0
+#     kwarg_value = 0
+#
+#     if args:
+#         for n in args:
+#             arg_value += n
+#
+#     if kwargs:
+#         for i in kwargs.values():
+#             kwarg_value += i
+#
+#     return summa + arg_value + kwarg_value
 
 
 # print(calculate_numbers(1))       # Прокидываем в функцию только 1 аргумент
@@ -72,9 +72,9 @@ def calculate_numbers(a, b, c, d, *args, **kwargs):
 """ Кортеж значений распаковывается с помощью * и передается в функцию в качестве позиционных аргументов, 
 далее печатается результат на экран"""
 
-tuple_value = (1, 2, 3, 4)
-dict_value = {'ab': 4, 'bc': 2, 'cd': 5, 'de': 4}
-print(calculate_numbers(2, 4, 5, 5, *tuple_value, **dict_value))
+# tuple_value = (1, 2, 3, 4)
+# dict_value = {'ab': 4, 'bc': 2, 'cd': 5, 'de': 4}
+# print(calculate_numbers(2, 4, 5, 5, *tuple_value, **dict_value))
 """ Две ** звёздочки не распаковывают значения, а передают словарь в качестве именованных 
     аргументов {'ab': 4, 'bc': 2, 'cd': 5, 'de': 4}. Распаковываются сами
     ключи 'ab', 'bc' и т.д., а ключи являются строками, что приводит к падению программы с ошибкой
@@ -89,17 +89,17 @@ print(calculate_numbers(2, 4, 5, 5, *tuple_value, **dict_value))
 # переданных по ключу (если они есть).
 
 # 1.1
-def hard_func(a, b, *args, **kwargs):
-    arg_value = 0
-    kwarg_value = 0
-
-    if args:
-        arg_value = sum(args[:2])
-
-    if kwargs:
-        kwarg_value = kwargs['c']
-
-    return a + b + arg_value + kwarg_value
-
-
-print(hard_func(1, 2, 3, 4, 4, 6, 8, c=8))
+# def hard_func(a, b, *args, **kwargs):
+#     arg_value = 0
+#     kwarg_value = 0
+#
+#     if args:
+#         arg_value = sum(args[:2])
+#
+#     if len(kwargs) != 0:
+#         kwarg_value = list(kwargs.items())[0][1]
+#
+#     return a + b + arg_value + kwarg_value
+#
+#
+# print(hard_func(1, 2, 3, 4, 4, 6, 8, c=8, r=2))
